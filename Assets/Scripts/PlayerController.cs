@@ -5,8 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    //declares Rigidbody variable
+    public float speed = 0;
+
     private Rigidbody rb;
+
     private float movementX;
     private float movementY;
 
@@ -16,20 +18,19 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    //provides movement data
-    void onMove(InputValue movementValue)
+    private void OnMove(InputValue movementValue)
     {
-        Vector2 movementVector = movementValue.get<Vector2>();
+        Vector2 movementVector = movementValue.Get<Vector2>();
 
         movementX = movementVector.x;
-        movementY = movementVector.Y;
+        movementY = movementVector.y;
     }
 
-
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
 
-        rb.AddForce(movement);
+        rb.AddForce(movement * speed);
     }
+
 }
